@@ -1,0 +1,132 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 70%;
+            height: 750px;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": 195, "image": "icons/pokemon_icon_195_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 157, "image": "icons/pokemon_icon_157_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 226, "image": "icons/pokemon_icon_226_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 184, "image": "icons/pokemon_icon_184_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 3, "image": "icons/pokemon_icon_003_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 26, "image": "icons/pokemon_icon_026_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 6, "image": "icons/pokemon_icon_006_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 38, "image": "icons/pokemon_icon_038_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 15, "image": "icons/pokemon_icon_015_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 103, "image": "icons/pokemon_icon_103_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 205, "image": "icons/pokemon_icon_205_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 154, "image": "icons/pokemon_icon_154_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 71, "image": "icons/pokemon_icon_071_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 49, "image": "icons/pokemon_icon_049_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 123, "image": "icons/pokemon_icon_123_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 219, "image": "icons/pokemon_icon_219_00.png", "label": " ", "shape": "circularImage", "size": 25}, {"font": {"color": "white"}, "id": 44, "image": "icons/pokemon_icon_044_00.png", "label": " ", "shape": "circularImage", "size": 25}]);
+        edges = new vis.DataSet([{"arrowStrikethrough": false, "arrows": "to", "color": "#57CF92", "from": 195, "smooth": true, "to": 6, "value": 0.717}, {"arrowStrikethrough": false, "arrows": "to", "color": "#57CF92", "from": 195, "smooth": true, "to": 226, "value": 0.835}, {"arrowStrikethrough": false, "arrows": "to", "color": "#57CF92", "from": 195, "smooth": true, "to": 38, "value": 0.857}, {"arrowStrikethrough": false, "arrows": "to", "color": "#57CF92", "from": 195, "smooth": true, "to": 15, "value": 0.711}, {"arrowStrikethrough": false, "arrows": "to", "color": "#57CF92", "from": 195, "smooth": true, "to": 103, "value": 0.63}, {"arrowStrikethrough": false, "arrows": "to", "color": "#4DCC49", "from": 157, "smooth": true, "to": 205, "value": 0.756}, {"arrowStrikethrough": false, "arrows": "to", "color": "#4DCC49", "from": 157, "smooth": true, "to": 154, "value": 0.588}, {"arrowStrikethrough": false, "arrows": "to", "color": "#4DCC49", "from": 157, "smooth": true, "to": 38, "value": 0.57}, {"arrowStrikethrough": false, "arrows": "to", "color": "#4DCC49", "from": 157, "smooth": true, "to": 3, "value": 0.508}, {"arrowStrikethrough": false, "arrows": "to", "color": "#4DCC49", "from": 157, "smooth": true, "to": 71, "value": 0.535}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8BD8B0", "from": 226, "smooth": true, "to": 6, "value": 0.635}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8BD8B0", "from": 226, "smooth": true, "to": 38, "value": 0.686}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8BD8B0", "from": 226, "smooth": true, "to": 49, "value": 0.661}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8BD8B0", "from": 226, "smooth": true, "to": 103, "value": 0.669}, {"arrowStrikethrough": false, "arrows": "to", "color": "#8BD8B0", "from": 226, "smooth": true, "to": 15, "value": 0.559}, {"arrowStrikethrough": false, "arrows": "to", "color": "#2A74AA", "from": 184, "smooth": true, "to": 6, "value": 0.723}, {"arrowStrikethrough": false, "arrows": "to", "color": "#2A74AA", "from": 184, "smooth": true, "to": 38, "value": 0.75}, {"arrowStrikethrough": false, "arrows": "to", "color": "#2A74AA", "from": 184, "smooth": true, "to": 226, "value": 0.534}, {"arrowStrikethrough": false, "arrows": "to", "color": "#2A74AA", "from": 184, "smooth": true, "to": 49, "value": 0.623}, {"arrowStrikethrough": false, "arrows": "to", "color": "#2A74AA", "from": 184, "smooth": true, "to": 123, "value": 0.712}, {"arrowStrikethrough": false, "arrows": "to", "color": "#12EFD8", "from": 3, "smooth": true, "to": 154, "value": 0.775}, {"arrowStrikethrough": false, "arrows": "to", "color": "#12EFD8", "from": 3, "smooth": true, "to": 71, "value": 0.762}, {"arrowStrikethrough": false, "arrows": "to", "color": "#12EFD8", "from": 3, "smooth": true, "to": 26, "value": 0.683}, {"arrowStrikethrough": false, "arrows": "to", "color": "#12EFD8", "from": 3, "smooth": true, "to": 219, "value": 0.67}, {"arrowStrikethrough": false, "arrows": "to", "color": "#12EFD8", "from": 3, "smooth": true, "to": 44, "value": 0.662}, {"arrowStrikethrough": false, "arrows": "to", "color": "#ACB0CE", "from": 26, "smooth": true, "to": 6, "value": 0.709}, {"arrowStrikethrough": false, "arrows": "to", "color": "#ACB0CE", "from": 26, "smooth": true, "to": 226, "value": 0.872}, {"arrowStrikethrough": false, "arrows": "to", "color": "#ACB0CE", "from": 26, "smooth": true, "to": 49, "value": 0.64}, {"arrowStrikethrough": false, "arrows": "to", "color": "#ACB0CE", "from": 26, "smooth": true, "to": 15, "value": 0.522}, {"arrowStrikethrough": false, "arrows": "to", "color": "#ACB0CE", "from": 26, "smooth": true, "to": 205, "value": 0.559}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "barnesHut": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.3,
+            "damping": 0.09,
+            "gravitationalConstant": -80000,
+            "springConstant": 0.001,
+            "springLength": 250
+        },
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        // default to using dot shape for nodes
+        options.nodes = {
+            shape: "dot"
+        }
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
