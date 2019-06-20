@@ -1,0 +1,133 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 70%;
+            height: 100%;
+            background-color: white;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"font": {"color": "white"}, "id": 3, "image": "/static/icons/pokemon_icon_003_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 164, "image": "/static/icons/pokemon_icon_164_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 76, "image": "/static/icons/pokemon_icon_076_61.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 288, "image": "/static/icons/pokemon_icon_288_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 205, "image": "/static/icons/pokemon_icon_205_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 286, "image": "/static/icons/pokemon_icon_286_00.png", "label": " ", "shape": "circularImage", "size": 50}, {"font": {"color": "white"}, "id": 295, "image": "/static/icons/pokemon_icon_295_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 313, "image": "/static/icons/pokemon_icon_313_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 289, "image": "/static/icons/pokemon_icon_289_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 71, "image": "/static/icons/pokemon_icon_071_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 103, "image": "/static/icons/pokemon_icon_103_61.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 332, "image": "/static/icons/pokemon_icon_332_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 241, "image": "/static/icons/pokemon_icon_241_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 17, "image": "/static/icons/pokemon_icon_017_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 388, "image": "/static/icons/pokemon_icon_388_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 460, "image": "/static/icons/pokemon_icon_460_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 277, "image": "/static/icons/pokemon_icon_277_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 275, "image": "/static/icons/pokemon_icon_275_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 70, "image": "/static/icons/pokemon_icon_070_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 421, "image": "/static/icons/pokemon_icon_421_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 233, "image": "/static/icons/pokemon_icon_233_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 267, "image": "/static/icons/pokemon_icon_267_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 127, "image": "/static/icons/pokemon_icon_127_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 47, "image": "/static/icons/pokemon_icon_047_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 462, "image": "/static/icons/pokemon_icon_462_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 204, "image": "/static/icons/pokemon_icon_204_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 314, "image": "/static/icons/pokemon_icon_314_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 43, "image": "/static/icons/pokemon_icon_043_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 143, "image": "/static/icons/pokemon_icon_143_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 274, "image": "/static/icons/pokemon_icon_274_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 189, "image": "/static/icons/pokemon_icon_189_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 49, "image": "/static/icons/pokemon_icon_049_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 294, "image": "/static/icons/pokemon_icon_294_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 203, "image": "/static/icons/pokemon_icon_203_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 102, "image": "/static/icons/pokemon_icon_102_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 253, "image": "/static/icons/pokemon_icon_253_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 206, "image": "/static/icons/pokemon_icon_206_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 217, "image": "/static/icons/pokemon_icon_217_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 101, "image": "/static/icons/pokemon_icon_101_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 417, "image": "/static/icons/pokemon_icon_417_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 214, "image": "/static/icons/pokemon_icon_214_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 346, "image": "/static/icons/pokemon_icon_346_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 345, "image": "/static/icons/pokemon_icon_345_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 312, "image": "/static/icons/pokemon_icon_312_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 75, "image": "/static/icons/pokemon_icon_075_61.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 82, "image": "/static/icons/pokemon_icon_082_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 463, "image": "/static/icons/pokemon_icon_463_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 145, "image": "/static/icons/pokemon_icon_145_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 108, "image": "/static/icons/pokemon_icon_108_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 181, "image": "/static/icons/pokemon_icon_181_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 335, "image": "/static/icons/pokemon_icon_335_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 397, "image": "/static/icons/pokemon_icon_397_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 291, "image": "/static/icons/pokemon_icon_291_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 269, "image": "/static/icons/pokemon_icon_269_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 166, "image": "/static/icons/pokemon_icon_166_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 474, "image": "/static/icons/pokemon_icon_474_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 405, "image": "/static/icons/pokemon_icon_405_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 137, "image": "/static/icons/pokemon_icon_137_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 347, "image": "/static/icons/pokemon_icon_347_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 424, "image": "/static/icons/pokemon_icon_424_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 114, "image": "/static/icons/pokemon_icon_114_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 398, "image": "/static/icons/pokemon_icon_398_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 83, "image": "/static/icons/pokemon_icon_083_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 407, "image": "/static/icons/pokemon_icon_407_00.png", "label": " ", "shape": "circularImage", "size": 35}, {"font": {"color": "white"}, "id": 441, "image": "/static/icons/pokemon_icon_441_00.png", "label": " ", "shape": "circularImage", "size": 35}]);
+        edges = new vis.DataSet([{"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 295, "value": 0.0388}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 313, "value": 0.0384}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 289, "value": 0.3816}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 71, "value": 0.036}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 103, "value": 0.0356}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 332, "value": 0.0352}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 241, "value": 0.034}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 17, "value": 0.0332}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 388, "value": 0.0328}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 460, "value": 0.0324}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 277, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 275, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 70, "value": 0.0308}, {"arrowStrikethrough": false, "arrows": "to", "color": "#e9325f", "from": 3, "smooth": true, "to": 421, "value": 0.3064}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 289, "value": 0.3852}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 233, "value": 0.0368}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 288, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 267, "value": 0.3012}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 127, "value": 0.3}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 47, "value": 0.3}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 462, "value": 0.028}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 204, "value": 0.274}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 313, "value": 0.2448}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 314, "value": 0.2448}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 43, "value": 0.2036}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 332, "value": 0.2}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 70, "value": 0.1968}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 143, "value": 0.1936}, {"arrowStrikethrough": false, "arrows": "to", "color": "#1aa08f", "from": 164, "smooth": true, "to": 274, "value": 0.1916}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 189, "value": 0.0388}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 49, "value": 0.0384}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 294, "value": 0.038}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 203, "value": 0.038}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 102, "value": 0.0372}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 253, "value": 0.0368}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 295, "value": 0.0352}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 206, "value": 0.034}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 217, "value": 0.0336}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 101, "value": 0.0336}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 417, "value": 0.0328}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 214, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 346, "value": 0.0312}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 345, "value": 0.0308}, {"arrowStrikethrough": false, "arrows": "to", "color": "#caa0dd", "from": 76, "smooth": true, "to": 312, "value": 0.03}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 214, "value": 0.0392}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 289, "value": 0.3848}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 75, "value": 0.0336}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 76, "value": 0.0328}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 82, "value": 0.1956}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 463, "value": 0.19}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 145, "value": 0.1752}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 108, "value": 0.1748}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 143, "value": 0.1736}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 181, "value": 0.17}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 47, "value": 0.1632}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 335, "value": 0.1576}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 397, "value": 0.1572}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 291, "value": 0.1552}, {"arrowStrikethrough": false, "arrows": "to", "color": "#45721b", "from": 288, "smooth": true, "to": 189, "value": 0.1448}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 214, "value": 0.0372}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 269, "value": 0.0372}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 166, "value": 0.036}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 206, "value": 0.036}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 474, "value": 0.0352}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 405, "value": 0.0344}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 164, "value": 0.0332}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 233, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 137, "value": 0.0304}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 274, "value": 0.2032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 332, "value": 0.2}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 347, "value": 0.2}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 103, "value": 0.1952}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 424, "value": 0.1932}, {"arrowStrikethrough": false, "arrows": "to", "color": "#379b59", "from": 205, "smooth": true, "to": 114, "value": 0.184}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 398, "value": 0.0392}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 289, "value": 0.384}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 313, "value": 0.0384}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 314, "value": 0.0384}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 397, "value": 0.0376}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 166, "value": 0.036}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 405, "value": 0.0344}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 83, "value": 0.0324}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 407, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 214, "value": 0.032}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 43, "value": 0.0316}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 71, "value": 0.0312}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 164, "value": 0.0296}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 70, "value": 0.0292}, {"arrowStrikethrough": false, "arrows": "to", "color": "#351d16", "from": 286, "smooth": true, "to": 441, "value": 0.0288}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 1,
+            "centralGravity": 0.045,
+            "damping": 1,
+            "gravitationalConstant": -231,
+            "springConstant": 0.295,
+            "springLength": 135
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        // default to using dot shape for nodes
+        options.nodes = {
+            shape: "dot"
+        }
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

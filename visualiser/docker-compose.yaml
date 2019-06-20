@@ -1,0 +1,29 @@
+---
+version: '2'
+services:
+  selenium-firefox:
+    container_name: selenium-firefox
+    image: selenium/standalone-firefox
+    ports:
+      - "4444:4444"
+    volumes:
+      - /dev/shm:/dev/shm
+      - /data:/data
+    restart: always
+
+  memcached-visualiser:
+    container_name: memcached-visualiser
+    image: memcached
+    ports:
+      - "11211:11211"
+    restart: always
+
+  visualiser:
+    container_name: visualiser
+    build: visualiser/
+    volumes:
+      - /data:/data
+    ports:
+      - "8000:5000"
+    restart: always
+
