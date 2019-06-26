@@ -1,0 +1,146 @@
+<form method=POST action=/display enctype=multipart/form-data>
+  <input type=file name=json_file><br>
+  <input type=text name=limit value=10><br>
+  <input type=submit name=submit>
+</form>
+
+Example of json file
+<pre>
+{
+  "settings": {
+    "cup": "jungle",
+    "opponent": {
+      "shield": 1,
+      "bait": 1
+    },
+    "matk": 0,
+    "mdef": 0,
+    "exclude": [
+      "slaking",
+      "slakoth",
+      "anorith",
+      "nuzleaf",
+      "miltank",
+      "voltorb",
+      "geodude_alolan",
+      "lileep",
+      "lickitung",
+      "lickilicky",
+      "ninjask",
+      "ampharos",
+      "parasect",
+      "zangoose",
+      "oddish",
+      "weepinbell",
+      "staravia",
+      "starly",
+      "pidgeotto",
+      "pidgey",
+      "ratatta",
+      "teddyursa",
+      "luxio",
+      "shinx",
+      "cacnea",
+      "hoppip",
+      "skiploom",
+      "chinchou",
+      "roselia",
+      "budew",
+      "ariados",
+      "spinerak",
+      "kricketot",
+      "aipom",
+      "pineco",
+      "farfetchd",
+      "turtwig",
+      "bulbasaur"
+    ]
+  },
+  "data": [
+    {
+      "pokemon": "venusaur",
+      "level": 20.5,
+      "atk": 5,
+      "def": 8,
+      "sta": 13,
+      "challenger": {
+        "bait": 1,
+        "shield": 1,
+        "fast": "Vine Whip",
+        "charged1": "Frenzy Plant",
+        "charged2": "Sludge Bomb"
+      }
+    },
+    {
+      "pokemon": "vigoroth",
+      "level": 29.5,
+      "atk": 3,
+      "def": 6,
+      "sta": 15,
+      "challenger": {
+        "bait": 1,
+        "shield": 1,
+        "fast": "Counter",
+        "charged1": "Body Slam",
+        "charged2": "Bulldoze"
+      }
+    },
+    {
+      "pokemon": "breloom",
+      "level": 20,
+      "atk": 15,
+      "def": 13,
+      "sta": 14,
+      "challenger": {
+        "bait": 1,
+        "shield": 1,
+        "fast": "Counter",
+        "charged1": "Seed Bomb",
+        "charged2": "Dynamic Punch"
+      }
+    },
+    {
+      "pokemon": "noctowl",
+      "level": 26.5,
+      "atk": 14,
+      "def": 7,
+      "sta": 14,
+      "challenger": {
+        "bait": 1,
+        "shield": 1,
+        "fast": "Wing Attack",
+        "charged1": "Sky Attack",
+        "charged2": "Night Shade"
+      }
+    },
+    {
+      "pokemon": "forretress",
+      "level": 23.5,
+      "atk": 12,
+      "def": 11,
+      "sta": 10,
+      "challenger": {
+        "bait": 1,
+        "shield": 1,
+        "fast": "Bug Bite",
+        "charged1": "Rock Tomb",
+        "charged2": "Heavy Slam"
+      }
+    },
+    {
+      "pokemon": "golem_alolan",
+      "level": 19,
+      "atk": 6,
+      "def": 9,
+      "sta": 10,
+      "challenger": {
+        "bait": 1,
+        "shield": 1,
+        "fast": "Rock Throw",
+        "charged1": "Rock Blast",
+        "charged2": "Wild Charge"
+      }
+    }
+  ]
+}
+</pre>
