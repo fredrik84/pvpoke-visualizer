@@ -33,6 +33,6 @@ services:
       - selenium-firefox
 
   pvpoke:
-    container_name: pv-pvpoke
     build: pvpoke/
+    container_name: pv-pvpoke
     image: registry.gigabit.nu/pvpoke-visualizer/pvpoke
