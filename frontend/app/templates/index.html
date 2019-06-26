@@ -1,9 +1,6 @@
-<a href="/static/0vs0.html">0 vs 0 shields</a><br>
-<a href="/static/0vs1.html">0 vs 1 shields</a><br>
-<a href="/static/0vs2.html">0 vs 2 shields</a><br>
-<a href="/static/1vs0.html">1 vs 0 shields</a><br>
-<a href="/static/1vs1.html">1 vs 1 shields</a><br>
-<a href="/static/1vs2.html">1 vs 2 shields</a><br>
-<a href="/static/2vs0.html">2 vs 0 shields</a><br>
-<a href="/static/2vs1.html">2 vs 1 shields</a><br>
-<a href="/static/2vs2.html">2 vs 2 shields</a><br>
+{% for cup in data %}
+  <h1>{{ cup }}</h1>
+  {% for row in data[cup] %}
+  <a href="/{{cup}}/{{row['mshield']}}vs{{row['oshield']}}.html">{{row['mshield']}} vs {{row['oshield']}} shields</a><br>
+  {% endfor %}
+{% endfor %}

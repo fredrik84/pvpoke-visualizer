@@ -187,7 +187,7 @@ class visualize():
             net.add_edge(src, dst, value=w, arrows='to', arrowStrikethrough=False, smooth=True, color={"color": entry['color'], "highlight": entry['color'], "opacity": 0.05}, selfReferenceSize=50)
 
         net.set_edge_smooth('continuous')
-        net.show_buttons(filter_=['physics'])
+        #net.show_buttons(filter_=['physics'])
         os.makedirs("/data/%s" % self.config['settings']['cup'], exist_ok=True)
         net.save_graph("/data/%s/%svs%s.html" % (self.config['settings']['cup'], self.config['settings']['my_shield'], self.config['settings']['op_shield']))
         return True

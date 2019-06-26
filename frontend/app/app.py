@@ -27,11 +27,13 @@ def admin_stuff():
     if request.method == 'POST':
       if 'json' in request.form:
         data = json.loads(request.form['json'])
-        key = data['settings']['cup']
+        key = "-".join((data['settings']['cup'], str(data['settings']['my_shield']), str(data['settings']['op_shield'])))
         mc.set("%s_config" % key, request.form['json'])
         d = mc.get('simulation_keys')
         if not d:
           d = []
+        else:
+          d = json.loads(d)
         if key not in d:
           d.append(key)
           mc.set("simulation_keys", json.dumps(d))
@@ -39,12 +41,18 @@ def admin_stuff():
         logging.info("Updated '%s_config'" % key)
     return render_template("admin.html")
 
-@app.route('/', methods=['GET'])
-def default():
-    return render_template("index.html")
-
 @app.route('/<key>/<scenario>.html', methods=['GET'])
 def scenarios(key, scenario):
-    return render_template("scenarios/%s/%s.html" % (key, scenario))
+    return render_template("scenarios.html", data=(key, scenario))
 
-
+@app.route('/', methods=['GET'])
+def default():
+    k = sorted(json.loads(mc.get('simulation_keys')))
+    keys = {}
+    for key in k:
+      tmp = key.split("-")
+      if len(tmp) >= 2:
+        if tmp[0] not in keys:
+          keys[tmp[0]] = []
+        keys[tmp[0]].append({'mshield': tmp[1], 'oshield': tmp[2]})
+    return render_template("index.html", data=keys)
