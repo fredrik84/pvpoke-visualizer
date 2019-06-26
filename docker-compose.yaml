@@ -1,0 +1,34 @@
+---
+version: '2'
+services:
+  selenium-firefox:
+    image: selenium/standalone-firefox
+    volumes:
+      - /dev/shm:/dev/shm
+      - /data:/data
+    restart: always
+
+  memcached:
+    image: memcached
+    restart: always
+
+  backend:
+    build: backend/
+    restart: always
+    volumes_from:
+      - selenium-firefox
+
+  frontend:
+    build: frontend/
+    ports:
+      - "8000:5000"
+    restart: always
+    volumes:
+      - /data:/app/templates/scenarios
+
+  pvpoke:
+    build: pvpoke/
+    ports:
+        - "8080:80"
+    volumes:
+      - "./pvpoke/src:/var/www/html"
