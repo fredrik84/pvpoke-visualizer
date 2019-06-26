@@ -33,6 +33,7 @@ services:
       - selenium-firefox
 
   pvpoke:
-    build: pvpoke/
+    image: fredrik84/pvpoke
     container_name: pv-pvpoke
-    image: registry.gigabit.nu/pvpoke-visualizer/pvpoke
+    ports:
+      - "80:80"

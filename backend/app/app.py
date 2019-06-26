@@ -210,4 +210,4 @@ while True:
     else:
         logging.warning("Memcached key 'simulation_keys' is empty or does not exist")
 
-    time.sleep(600-(time.time()-start))
+    time.sleep(max(int(600-(time.time()-start)), 0))
