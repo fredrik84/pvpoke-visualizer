@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(levelname)-8s] 
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
-mc = memcache.Client(['memcached:11211'], debug=0)
+mc = memcache.Client([os.environ.get('MEMCACHED', 'memcached')], debug=0)
 
 @app.route('/display', methods=['POST'])
 def display():

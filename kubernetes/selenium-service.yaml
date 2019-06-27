@@ -6,14 +6,16 @@ metadata:
     kompose.version: 1.16.0 (0c01309)
   creationTimestamp: null
   labels:
-    io.kompose.service: frontend
-  name: frontend
+    io.kompose.service: selenium
+  name: selenium
 spec:
+  externalIPs:
+  - 10.233.56.92
   ports:
-  - name: "80"
-    port: 80
-    targetPort: 5000
+  - name: "4444"
+    port: 4444
+    targetPort: 4444
   selector:
-    io.kompose.service: frontend
+    io.kompose.service: selenium
 status:
   loadBalancer: {}

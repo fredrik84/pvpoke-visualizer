@@ -20,16 +20,21 @@ spec:
     spec:
       containers:
       - image: registry.gigabit.nu/pvpoke-visualizer/frontend
+        env:
+        - name: MEMCACHED
+          value: 10.233.56.91:11211
         name: pv-frontend
         ports:
         - containerPort: 5000
         resources: {}
         volumeMounts:
         - mountPath: /data
-          name: selenium-firefox-claim0
+          name: pv-claim0
+      imagePullSecrets:
+        - name: regcred
       restartPolicy: Always
       volumes:
-      - name: selenium-firefox-claim0
+      - name: pv-claim0
         persistentVolumeClaim:
-          claimName: selenium-firefox-claim0
+          claimName: pv-claim0
 status: {}

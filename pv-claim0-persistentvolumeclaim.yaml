@@ -3,12 +3,14 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: selenium-firefox-claim0
-  name: selenium-firefox-claim0
+    io.kompose.service: pv-claim0
+  name: pv-claim0
 spec:
   accessModes:
-  - ReadWriteOnce
+  - ReadWriteMany
   resources:
     requests:
-      storage: 100Mi
+      storage: 200Mi
+  storageClassName: manual
+  volumeName: pv-volume
 status: {}

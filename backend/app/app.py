@@ -5,8 +5,10 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
 import json
 import os
+import base64
 from backports import csv
 import hashlib
 import logging
@@ -16,7 +18,9 @@ import memcache
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(levelname)-8s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 stats = json.load(open("stats.txt"))
-mc = memcache.Client(['memcached:11211'], debug=0)
+mc = memcache.Client([os.environ.get('MEMCACHED', 'memcached')], debug=0)
+pvpoke_address = os.environ.get('PVPOKE', 'pvpoke')
+selenium_address = os.environ.get('SELENIUM', 'selenium')
 
 class simulations():
   def __init__(self, entry):
@@ -99,7 +103,7 @@ class simulations():
   def _generate_url(self, d):
     moves = self._get_moves(d['pokemon'], d['fast'],  d['charged1'], d['charged2'])
     url = "%s/%s/%s/%s%s/%s-%s-%s/%s-%s/" % (
-        'http://pvpoke/battle/multi/1500',
+        'http://%s/battle/multi/1500' % pvpoke_address,
       self.cup,
       d['pokemon'].lower(),
       self.opponent['my_shield'], self.opponent['op_shield'],
@@ -109,24 +113,27 @@ class simulations():
     return url
 
   def fetch_url(self, url, pokemon):
-    profile = webdriver.FirefoxProfile()
-    profile.set_preference('browser.download.folderList', 2) # custom location
-    profile.set_preference('browser.download.manager.showWhenStarting', False)
-    profile.set_preference('browser.download.dir', '/data/')
-    profile.set_preference('browser.helperApps.neverAsk.saveToDisk', 'text/csv')
-    driver = webdriver.Remote(
-      browser_profile=profile,
-      command_executor='http://selenium-firefox:4444/wd/hub',
-      desired_capabilities=DesiredCapabilities.FIREFOX)
+    options = webdriver.ChromeOptions()
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-infobars")
+    options.add_argument("--disable-web-security")
+    options.add_argument("--disable-extensions")
+    options.add_experimental_option("prefs", {
+      "download.default_directory": "/data/",
+      "download.prompt_for_download": False,
+      "download.directory_upgrade": True,
+    })
+    driver = webdriver.Remote(command_executor='http://%s/wd/hub' % selenium_address, desired_capabilities=options.to_capabilities())
     driver.set_window_size(1024, 2000)
     driver.get(url)
     driver.set_page_load_timeout(30)
     driver.maximize_window()
     logging.info(url)
-    time.sleep(5)
     driver.save_screenshot("/data/screenshot.png")
     element = driver.find_element_by_xpath("//*[contains(@class, 'download-csv')]")
     results = element.click()
+    time.sleep(1.5)
     driver.quit()
     os.chdir("/data/")
     files = filter(os.path.isfile, os.listdir("/data/"))
@@ -176,11 +183,18 @@ class visualize():
             net.add_node(src, ' ', image=my_img, shape='circularImage', size=50, color={'highlight': {'border': entry['color']}}, borderWidthSelected=5)
             exists.append(src)
 
+        fix_list = [346,26,82]
+        for src in fix_list:
+            my_img = '/static/icons/pokemon_icon_%s_%s.png' % (f'{src:03}', t)
+            net.add_node(src, ' ', image=my_img, shape='circularImage', size=50, color={'highlight': {'border': entry['color']}}, borderWidthSelected=5)
+
         for entry in self.edge_data:
             src = entry['challenger_id']
             pokemon = entry['challenger']
             opponent = entry['opponent']
             if opponent.lower() not in self.include:
+                continue
+            if pokemon.lower() not in self.include:
                 continue
             dst = entry['opponent_id']
             w = entry['weight']/10

@@ -18,7 +18,7 @@ spec:
         io.kompose.service: pvpoke
     spec:
       containers:
-      - image: registry.gigabit.nu/pvpoke-visualizer/pvpoke
+      - image: fredrik84/pvpoke
         name: pv-pvpoke
         resources: {}
       restartPolicy: Always

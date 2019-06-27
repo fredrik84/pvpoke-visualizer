@@ -6,8 +6,8 @@ metadata:
     kompose.version: 1.16.0 (0c01309)
   creationTimestamp: null
   labels:
-    io.kompose.service: selenium-firefox
-  name: selenium-firefox
+    io.kompose.service: selenium
+  name: selenium
 spec:
   replicas: 1
   strategy:
@@ -16,18 +16,18 @@ spec:
     metadata:
       creationTimestamp: null
       labels:
-        io.kompose.service: selenium-firefox
+        io.kompose.service: selenium
     spec:
       containers:
-      - image: selenium/standalone-firefox
+      - image: selenium/standalone-chrome-debug
         name: pv-selenium
         resources: {}
         volumeMounts:
         - mountPath: /data
-          name: selenium-firefox-claim0
+          name: pv-claim0
       restartPolicy: Always
       volumes:
-      - name: selenium-firefox-claim0
+      - name: pv-claim0
         persistentVolumeClaim:
-          claimName: selenium-firefox-claim0
+          claimName: pv-claim0
 status: {}

@@ -1,10 +1,9 @@
 ---
 version: '2'
 services:
-  selenium-firefox:
+  selenium:
     container_name: pv-selenium
-    image: selenium/standalone-firefox
-    shm_size: 2gb
+    image: selenium/standalone-chrome-debug:latest
     volumes:
       - /data:/data
     restart: always
@@ -20,7 +19,11 @@ services:
     image: registry.gigabit.nu/pvpoke-visualizer/backend
     restart: always
     volumes_from:
-      - selenium-firefox
+      - selenium
+    environment:
+      MEMCACHED: memcached:11211
+      SELENIUM: selenium:4444
+      PVPOKE: pvpoke:80
 
   frontend:
     container_name: pv-frontend
@@ -30,7 +33,9 @@ services:
       - "8000:5000"
     restart: always
     volumes_from:
-      - selenium-firefox
+      - selenium
+    environment:
+      MEMCACHED: memcached:11211
 
   pvpoke:
     image: fredrik84/pvpoke
