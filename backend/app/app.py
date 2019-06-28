@@ -76,7 +76,7 @@ class simulations():
                   'opponent_id': stats[opponent],
                   'weight': int(entry[2])/100,
                   'color': color})
-        mc.set(self.url, json.dumps({'edge': self.edge_data, 'node': self.node_data}))
+        mc.set(self.url, json.dumps({'edge': self.edge_data, 'node': self.node_data}), 86400)
         return True
     except Exception as e:
       traceback.print_exc()

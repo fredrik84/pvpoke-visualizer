@@ -6,6 +6,6 @@ ADD app/requirements.txt /app/
 RUN pip install -r /app/requirements.txt
 ADD app/ /app/
 RUN mkdir /data
-RUN ln -s /data /app/templates/scenarios
+RUN ln -s /data /app/static/scenarios
 
-ENTRYPOINT flask run -h 0.0.0.0
+ENTRYPOINT flask run --with-threads -h 0.0.0.0

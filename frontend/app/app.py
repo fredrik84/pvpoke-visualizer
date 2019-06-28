@@ -12,10 +12,13 @@ import traceback
 import time
 import memcache
 import pprint
+from prometheus_flask_exporter import PrometheusMetrics
+
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(levelname)-8s] %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
 app = Flask(__name__)
 app.config['TEMPLATES_AUTO_RELOAD'] = True
+metrics = PrometheusMetrics(app)
 mc = memcache.Client([os.environ.get('MEMCACHED', 'memcached')], debug=0)
 
 @app.route('/display', methods=['POST'])
@@ -23,6 +26,7 @@ def display():
     return render_template("1vs1.html")
 
 @app.route('/admin-hidden-stuff', methods=['GET', 'POST'])
+@metrics.do_not_track()
 def admin_stuff():
     if request.method == 'POST':
       if 'json' in request.form:

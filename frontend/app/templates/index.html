@@ -1,6 +1,118 @@
-{% for cup in data %}
-  <h1>{{ cup }}</h1>
-  {% for row in data[cup] %}
-  <a href="/{{cup}}/{{row['mshield']}}vs{{row['oshield']}}.html">{{row['mshield']}} vs {{row['oshield']}} shields</a><br>
-  {% endfor %}
-{% endfor %}
+<html>
+  <head>
+     <meta name="viewport" content="width=device-width">
+     <meta name="viewport" content="initial-scale=1.0">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+     <style>
+	body {
+	  color: #fff;
+	  text-align: center;
+	  font-family: Arial, Helvetica;
+	}
+
+	.big {
+	  font-size: 1.2em;
+	}
+
+	.small {
+	  font-size: .7em;
+	}
+
+	.square {
+	  width: .7em;
+	  height: .7em;
+	  margin: .5em;
+	  display: inline-block;
+	}
+
+	/* Custom dropdown */
+	.custom-dropdown {
+	  position: relative;
+	  display: inline-block;
+	  vertical-align: middle;
+	  margin: 10px; /* demo only */
+	}
+
+	.custom-dropdown select {
+	  background-color: #1abc9c;
+	  color: #fff;
+	  font-size: inherit;
+	  padding: .5em;
+	  padding-right: 2.5em;	
+	  border: 0;
+	  margin: 0;
+	  border-radius: 3px;
+	  text-indent: 0.01px;
+	  text-overflow: '';
+	  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+	}
+
+	.custom-dropdown::before,
+	.custom-dropdown::after {
+	  content: "";
+	  position: absolute;
+	  pointer-events: none;
+	}
+
+	.custom-dropdown::after { /*  Custom dropdown arrow */
+	  content: "\25BC";
+	  height: 1em;
+	  font-size: .625em;
+	  line-height: 1;
+	  right: 1.2em;
+	  top: 50%;
+	  margin-top: -.5em;
+	}
+
+	.custom-dropdown::before { /*  Custom dropdown arrow cover */
+	  width: 2em;
+	  right: 0;
+	  top: 0;
+	  bottom: 0;
+	  border-radius: 0 3px 3px 0;
+	}
+
+	.custom-dropdown select[disabled] {
+	  color: rgba(0,0,0,.3);
+	}
+
+	.custom-dropdown select[disabled]::after {
+	  color: rgba(0,0,0,.1);
+	}
+
+	.custom-dropdown::before {
+	  background-color: rgba(0,0,0,.15);
+	}
+
+	.custom-dropdown::after {
+	  color: rgba(0,0,0,.4);
+	}
+     </style>
+  </head>
+  <body>
+      <span class='custom-dropdown'>
+      <select id="selector">
+        <option disabled selected>Choose a scenario</option>
+      {% for cup in data %}
+        <optgroup label="{{ cup | title }} Cup">
+        {% for row in data[cup] %}
+          <option value="/static/scenarios/{{cup}}/{{row['mshield']}}vs{{row['oshield']}}.html">{{row['mshield']}} vs {{row['oshield']}} shields</option>
+        {% endfor %}
+        </optgroup>
+      {% endfor %}-
+      </select>
+    </span>
+    <div>
+      <iframe src="about:blank" frameborder="0" id="iframeId" width=100% height=94%></iframe>
+    </div>
+
+    <script>
+    $(document).ready(function(){
+      $("#selector").change(function(){
+        $("#iframeId").attr("src", $(this).val());
+      });
+    });
+    </script>
+  </body>
+</html>
+

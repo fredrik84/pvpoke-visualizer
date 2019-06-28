@@ -3,3 +3,4 @@ pyvis
 selenium
 python-memcached
 backports.csv
+prometheus-flask-exporter
